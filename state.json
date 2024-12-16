@@ -1,0 +1,29 @@
+{
+  "current_position": 1,
+  "api_states": {
+    "0": {
+      "status": "blocked",
+      "blocked_until": "2024-12-16T18:39:33.298820"
+    },
+    "1": {
+      "status": "available",
+      "blocked_until": null
+    },
+    "2": {
+      "status": "available",
+      "blocked_until": null
+    },
+    "3": {
+      "status": "blocked",
+      "blocked_until": "2024-12-16T17:12:23.338150"
+    },
+    "4": {
+      "status": "blocked",
+      "blocked_until": "2024-12-16T17:50:54.308399"
+    },
+    "5": {
+      "status": "blocked",
+      "blocked_until": "2024-12-16T18:04:06.527071"
+    }
+  }
+}
