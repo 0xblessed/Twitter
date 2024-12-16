@@ -1,0 +1,32 @@
+name: Run Python Script
+
+on:
+  schedule:
+    - cron: '*/40 * * * *'  # Cada 40 minutos
+  workflow_dispatch:      # Permite iniciar manualmente el workflow desde la pestaña Actions
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+      
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      
+      - name: Run script with random delay
+        run: |
+          import random, time
+          # Espera aleatoria entre 0 y 1800 segundos (0 a 30 min)
+          delay = random.randint(0,1800)
+          print(f"Esperando {delay} segundos antes de ejecutar el script...")
+          time.sleep(delay)
+          
+          # Ejecutamos el script principal
+          python scrape_tweetsv8.py
