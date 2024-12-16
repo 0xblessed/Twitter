@@ -127,8 +127,6 @@ def load_state(accounts):
     api_states = state_data.get("api_states", {})
 
     # Asegurarnos de que todas las cuentas estén representadas
-    # Clave para estado podría ser el índice o una identificación única. 
-    # Usaremos el índice, ya que el orden es fijo.
     for i in range(len(accounts)):
         str_i = str(i)
         if str_i not in api_states:
@@ -211,8 +209,6 @@ def main():
     total_accounts = len(accounts)
     attempts = 0
 
-    # Vamos a intentar con cada cuenta, pero empezando desde current_position
-    # y dando la vuelta al tambor si es necesario
     while attempts < total_accounts:
         idx = current_position
         account = accounts[idx]
@@ -237,7 +233,6 @@ def main():
             )
         except Exception as e:
             print(f"Error al crear el cliente de Twitter: {e}")
-            # Avanzar a la siguiente cuenta
             current_position = advance_position(current_position, total_accounts)
             attempts += 1
             continue
@@ -294,7 +289,6 @@ def main():
 
         if not tweets_response.data or len(tweets_response.data) == 0:
             print("El usuario no tiene tweets recientes o no se pudieron obtener con esta cuenta.")
-            # Pasar a la siguiente cuenta sin bloquear
             current_position = advance_position(current_position, total_accounts)
             attempts += 1
             continue
@@ -321,8 +315,6 @@ def main():
             # Verificar si ya fue procesado
             if last_retweeted_id is not None and t.id <= last_retweeted_id:
                 print(f"Omitiendo tweet antiguo o ya procesado: {t.id}")
-                # Como los tweets vienen ordenados (el más reciente primero),
-                # no habrá tweets más nuevos luego de este.
                 break
 
             # Si es retweet, obtener el tweet original
@@ -393,30 +385,45 @@ def main():
                 # Actualizar último ID procesado
                 save_last_retweeted_id(candidate_tweet.id)
                 print("Proceso completado con éxito.")
+                
+                # ---------------------------------------------------------------------
+                # AQUÍ SE REALIZA LA LLAMADA A LA API DE MAKE PARA ACTIVAR EL ESCENARIO
+                # ---------------------------------------------------------------------
+                make_api_key = "83656d3c-d809-41cb-891b-7e761d5e30c6"  # Tu API Key de Make
+                scenario_id = "2885800"  # ID del escenario de Make
+                make_url = f"https://api.integromat.com/v2/scenarios/{scenario_id}/run"
+
+                make_headers = {
+                    "Authorization": f"Token {make_api_key}",
+                    "Content-Type": "application/json"
+                }
+
+                make_response = requests.post(make_url, headers=make_headers)
+
+                if make_response.status_code == 200:
+                    print("Escenario de Make activado exitosamente.")
+                else:
+                    print(f"Error al activar el escenario de Make: {make_response.status_code}")
+                    print(make_response.text)
+                # ---------------------------------------------------------------------
 
                 tweet_encontrado = True
-                # Avanzar a la siguiente posición para la próxima ejecución
                 current_position = advance_position(current_position, total_accounts)
-                break  # Salimos del while principal
+                break
             except Exception as e:
                 print(f"Error procesando el tweet encontrado: {e}")
                 candidate_tweet = None
-                # Pasar a la siguiente cuenta para intentar con otra
                 current_position = advance_position(current_position, total_accounts)
                 attempts += 1
                 continue
         else:
-            # No se encontró tweet candidato con esta cuenta (no hay tweets nuevos)
             print("No se encontró un tweet candidato con esta cuenta. No hay tweets nuevos para procesar.")
-            # Simplemente avanzamos a la siguiente cuenta
             current_position = advance_position(current_position, total_accounts)
             attempts += 1
 
-    # Si no se encontró tweet y ya hemos intentado con todas las cuentas
     if not tweet_encontrado and candidate_tweet is None:
         print("No se encontraron tweets nuevos en ninguna cuenta disponible.")
 
-    # Guardar el estado del tambor al finalizar la ejecución
     save_state(current_position, api_states)
 
 if __name__ == "__main__":
