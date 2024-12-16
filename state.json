@@ -1,29 +1,29 @@
 {
-  "current_position": 2,
+  "current_position": 1,
   "api_states": {
     "0": {
-      "status": "available",
-      "blocked_until": null
+      "status": "blocked",
+      "blocked_until": "2024-12-16T18:39:33.298820"
     },
     "1": {
       "status": "available",
       "blocked_until": null
     },
     "2": {
-      "status": "blocked",
-      "blocked_until": "2024-12-16T11:07:32.555909"
+      "status": "available",
+      "blocked_until": null
     },
     "3": {
       "status": "blocked",
-      "blocked_until": "2024-12-16T11:07:32.962141"
+      "blocked_until": "2024-12-16T17:12:23.338150"
     },
     "4": {
       "status": "blocked",
-      "blocked_until": "2024-12-16T11:07:33.399424"
+      "blocked_until": "2024-12-16T17:50:54.308399"
     },
     "5": {
       "status": "blocked",
-      "blocked_until": "2024-12-16T11:07:33.790154"
+      "blocked_until": "2024-12-16T18:04:06.527071"
     }
   }
 }
