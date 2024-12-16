@@ -22,11 +22,8 @@ jobs:
       
       - name: Run script with random delay
         run: |
-          import random, time
-          # Espera aleatoria entre 0 y 1800 segundos (0 a 30 min)
-          delay = random.randint(0,1800)
-          print(f"Esperando {delay} segundos antes de ejecutar el script...")
-          time.sleep(delay)
+          # Ejecutamos la lógica aleatoria en una sola línea con python -c
+          python -c "import random,time; delay=random.randint(0,1800); print(f'Esperando {delay} segundos antes de ejecutar el script...'); time.sleep(delay)"
           
-          # Ejecutamos el script principal
+          # Ahora ejecutamos el script principal
           python scrape_tweetsv8.py
