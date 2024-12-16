@@ -2,7 +2,7 @@ name: Run Python Script
 
 on:
   schedule:
-    - cron: '*/40 * * * *'  # Cada 40 minutos
+    - cron: '*/20 * * * *'  # Cada 40 minutos
   workflow_dispatch:      # Permite iniciar manualmente el workflow desde la pestaña Actions
 
 jobs:
@@ -23,7 +23,7 @@ jobs:
       - name: Run script with random delay
         run: |
           # Ejecutamos la lógica aleatoria en una sola línea con python -c
-          python -c "import random,time; delay=random.randint(0,1800); print(f'Esperando {delay} segundos antes de ejecutar el script...'); time.sleep(delay)"
+          python -c "import random,time; delay=random.randint(0,900); print(f'Esperando {delay} segundos antes de ejecutar el script...'); time.sleep(delay)"
           
           # Ahora ejecutamos el script principal
           python scrape_tweetsv8.py
