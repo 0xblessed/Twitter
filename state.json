@@ -1,13 +1,13 @@
 {
-  "current_position": 1,
+  "current_position": 2,
   "api_states": {
     "0": {
       "status": "blocked",
       "blocked_until": "2024-12-16T18:39:33.298820"
     },
     "1": {
-      "status": "available",
-      "blocked_until": null
+      "status": "blocked",
+      "blocked_until": "2024-12-16T18:48:35.842078"
     },
     "2": {
       "status": "available",
