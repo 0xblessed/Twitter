@@ -2,8 +2,9 @@ name: Run Python Script
 
 on:
   schedule:
-    - cron: '*/20 * * * *'  # Cada 20 minutos
-  workflow_dispatch:      # Permite iniciar manualmente el workflow desde la pestaña Actions
+    - cron: '*/40 9-23 * * *'   # Cada 40 minutos entre las 09:00 y las 23:59 UTC
+    - cron: '*/40 0-1 * * *'    # Cada 40 minutos entre las 00:00 y las 01:59 UTC
+  workflow_dispatch:
 
 jobs:
   build-and-run:
