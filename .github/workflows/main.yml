@@ -24,6 +24,6 @@ jobs:
       - name: Run script with random delay
         run: |
           echo "Generating a random delay..."
-          python -c "import random,time; delay=random.randint(0,900); print(f'Waiting {delay} seconds before executing the script...'); time.sleep(delay)"
+          python -c "import random,time; delay=random.randint(0,900); print(f'Waiting... {delay} seconds before executing the script...'); time.sleep(delay)"
           echo "Delay completed. Running the main script..."
           python scrape_tweetsv8.py
